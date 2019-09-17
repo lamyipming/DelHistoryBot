@@ -7,7 +7,7 @@ import pymongo
 
 app = Flask(__name__)
 bot = telegram.Bot(token="<TOKEN>")
-mongo_client = pymongo.MongoClient("<MONGODB>")
+mongo_client = pymongo.MongoClient("<MONGO>")
 db = mongo_client["tgbot"]
 msg = db["tg-pending"]
 timer = db["tg-timer"]
@@ -28,9 +28,11 @@ def process_queue():
         if result is None:
             break
         else:
-            msg_deleted = bot.delete_message(result["chat_id"], result["msg_id"])
-            deleted = deleted + 1
-    
+            try:
+                msg_deleted = bot.delete_message(result["chat_id"], result["msg_id"])
+                deleted = deleted + 1
+            except:
+                pass    
     return 'Deleted '+str(deleted)+' messages.'
 
 @app.route('/hook',methods=['POST'])
