@@ -1,5 +1,5 @@
 python-telegram-bot==11.1.0
-flask==1.1.1
+flask==2.3.2
 pandas==0.25.1
 pymongo==3.9.0
 dnspython==1.16.0
